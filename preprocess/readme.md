@@ -9,7 +9,7 @@ All training and testing images in our model are aligned using facial landmarks.
 
 - First, 5 facial landmark for a face photo need to be detected (we detect using [MTCNN](https://github.com/kpzhang93/MTCNN_face_detection_alignment)(MTCNNv1)).
 
-- Then, we provide a matlab function in `face_align_512.m` to align, resize and crop face photos (and corresponding drawings) to 512x512.Call this function in MATLAB to align the image to 512x512.
+- Then, we provide a matlab function in `face_align_512.m` to align, resize and crop face photos (and corresponding drawings) to 512x512. Call this function in MATLAB to align the image to 512x512.
 For example, for `ia_selfie_10515.jpg` in `example` dir, 5 detected facial landmark is saved in `example/ia_selfie_10515_facial5point.mat`. Call following in MATLAB:
 ```bash
 load('example/ia_selfie_10515_facial5point.mat');
@@ -22,6 +22,6 @@ See `face_align_512.m` for more instructions.
 
 ### 2. Prepare nose,eyes,lips masks
 
-In our work, we use the face parsing network in https://github.com/cientgu/Mask_Guided_Portrait_Editing to get nose,eyes,lips regions and then dilate the regions to make them cover these facial features. (some examples are shown in `example` folder)
+In our work, we use the face parsing network in https://github.com/cientgu/Mask_Guided_Portrait_Editing to get nose,eyes,lips regions and then dilate the regions to make them cover these facial features (some examples are shown in `example` folder).
 
 - The background masks need to be copied to `datasets/list/mask/A(B)(_eyes)(_lips)`, and has the **same filename** with aligned face photos.  
