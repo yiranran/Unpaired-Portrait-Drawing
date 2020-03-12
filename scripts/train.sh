@@ -1,0 +1,2 @@
+set -ex
+python train.py --dataroot trainset --name formal --model asymmetric_cycle_gan_cls --output_nc 1 --load_size 572 --crop_size 512 --lr 0.000015 --dataset_mode unaligned_mask_stylecls --display_env asymmetric_trainset --gpu_ids 0 --gpu_ids_p 0 --niter 100 --niter_decay 100
