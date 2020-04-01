@@ -2,7 +2,7 @@
 
 During training, face photos and drawings are aligned and have nose,eyes,lips mask detected. 
 
-During test, the alignment step is optional and the maskes are not needed.
+During test, the alignment step is optional and the masks are not needed.
 
 ### 1. Align, resize, crop images to 512x512
 

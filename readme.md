@@ -39,7 +39,7 @@ pip install -r requirements.txt
 
 ## Apply a Pre-trained Model
 
-- Download a pre-trained model from [here](https://pan.baidu.com/s/1_9Fy8mRpTQp6AvqhHsfQAQ)(extract code:c9h7) and put it in `checkpoints/pretrained`.
+- Download a pre-trained model from [BaiduYun](https://pan.baidu.com/s/1_9Fy8mRpTQp6AvqhHsfQAQ)(extract code:c9h7) or [GoogleDrive](https://drive.google.com/drive/folders/1FzOcdlMYhvK_nyLCe8wnwotMphhIoiYt?usp=sharing) and put it in `checkpoints/pretrained`.
 
 - Then generate artistic portrait drawings for example photos in `examples` using
 ``` bash
