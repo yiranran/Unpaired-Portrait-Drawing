@@ -16,6 +16,8 @@ From left to right: input, output(style1), output(style2), output(style3)
 
 ## Citation
 If you use this code for your research, please cite our paper.
+
+[paper](https://yiranran.github.io/files/CVPR2020_Unpaired%20Portrait%20Drawing%20Generation%20via%20Asymmetric%20Cycle%20Mapping.pdf), [suppl](https://yiranran.github.io/files/CVPR2020_Unpaired%20Portrait%20Drawing%20Generation%20via%20Asymmetric%20Cycle%20Mapping%20Suppl.pdf).
 ```
 @inproceedings{YiLLR20,
   title     = {Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping},
@@ -50,6 +52,9 @@ The test results will be saved to a html file here: `./results/pretrained/test_2
 - You could also test on your photos. The photos need to be square since the program will load it and resized as 512x512. An optional preprocess is [here](preprocess/readme.md). Modify the 5th line in [test_seq_style.py](test_seq_style.py) to your test folder and run the above command again.
 
 You can contact email yr16@mails.tsinghua.edu.cn for any questions.
+
+## Colab
+A colab demo is [here](https://colab.research.google.com/drive/1U1fPXD1JukuKPOrhGMX1iaJC-d8_RUYr).
 
 ## Acknowledgments
 Our code is inspired by [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix).
