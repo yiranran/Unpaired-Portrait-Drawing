@@ -265,7 +265,7 @@ class AsymmetricCycleGANClsModel(BaseModel):
         if not self.opt.style_loss_with_weight:
             loss_D_fake_cls = self.criterionCls(pred_fake_cls, self.real_B_label)
         else:
-            loss_D_fake_cls = torch.mean(self.real_B_style0[:0] * self.criterionCls2(pred_fake_cls, self.zero) + self.real_B_style0[:,1] * self.criterionCls2(pred_fake_cls, self.one) + self.real_B_style0[:2] * self.criterionCls2(pred_fake_cls, self.two))
+            loss_D_fake_cls = torch.mean(self.real_B_style0[:,0] * self.criterionCls2(pred_fake_cls, self.zero) + self.real_B_style0[:,1] * self.criterionCls2(pred_fake_cls, self.one) + self.real_B_style0[:,2] * self.criterionCls2(pred_fake_cls, self.two))
         # Combined loss and calculate gradients
         loss_D = (loss_D_real + loss_D_fake) * 0.5
         loss_D_cls = (loss_D_real_cls + loss_D_fake_cls) * 0.5
