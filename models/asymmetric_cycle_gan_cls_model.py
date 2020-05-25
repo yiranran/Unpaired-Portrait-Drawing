@@ -168,7 +168,6 @@ class AsymmetricCycleGANClsModel(BaseModel):
             self.optimizers.append(self.optimizer_D)
 
             self.lpips = dm.DistModel(opt,model='net-lin',net='alex',use_gpu=True)
-            self.set_requires_grad(self.lpips, False)
 
             self.hed = networks.define_HED(init_weights_=opt.hed_pretrained_mode, gpu_ids_=self.opt.gpu_ids_p)
             self.set_requires_grad(self.hed, False)

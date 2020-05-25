@@ -2,6 +2,7 @@
 debug*
 datasets/
 checkpoints/
+style_features/
 results/
 build/
 dist/
