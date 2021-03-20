@@ -1,9 +1,9 @@
 
 # Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping
 
-We provide PyTorch implementations for our CVPR 2020 paper "Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping".
+We provide PyTorch implementations for our CVPR 2020 paper "Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping". [paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Yi_Unpaired_Portrait_Drawing_Generation_via_Asymmetric_Cycle_Mapping_CVPR_2020_paper.pdf), [suppl](https://openaccess.thecvf.com/content_CVPR_2020/supplemental/Yi_Unpaired_Portrait_Drawing_CVPR_2020_supplemental.pdf).
 
-This project generates artistic portrait drawings from face photos using a GAN-based model.
+This project generates multi-style artistic portrait drawings from face photos using a GAN-based model.
 
 
 ## Our Proposed Framework
@@ -13,19 +13,6 @@ This project generates artistic portrait drawings from face photos using a GAN-b
 ## Sample Results
 From left to right: input, output(style1), output(style2), output(style3)
 <img src = 'imgs/results.jpg'>
-
-## Citation
-If you use this code for your research, please cite our paper.
-
-[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Yi_Unpaired_Portrait_Drawing_Generation_via_Asymmetric_Cycle_Mapping_CVPR_2020_paper.pdf), [suppl](https://openaccess.thecvf.com/content_CVPR_2020/supplemental/Yi_Unpaired_Portrait_Drawing_CVPR_2020_supplemental.pdf).
-```
-@inproceedings{YiLLR20,
-  title     = {Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping},
-  author    = {Yi, Ran and Liu, Yong-Jin and Lai, Yu-Kun and Rosin, Paul L},
-  booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition (CVPR '20)},
-  year      = {2020}
-}
-```
 
 ## Prerequisites
 - Linux or macOS
@@ -39,11 +26,14 @@ If you use this code for your research, please cite our paper.
 pip install -r requirements.txt
 ```
 
-## Apply a Pre-trained Model
+## Colab
+A colab demo is [here](https://colab.research.google.com/drive/1U1fPXD1JukuKPOrhGMX1iaJC-d8_RUYr).
+
+## Test steps (apply a pretrained model)
 
 - 1. Download pre-trained models from [BaiduYun](https://pan.baidu.com/s/1_9Fy8mRpTQp6AvqhHsfQAQ)(extract code:c9h7) or [GoogleDrive](https://drive.google.com/drive/folders/1FzOcdlMYhvK_nyLCe8wnwotMphhIoiYt?usp=sharing) and rename the folder to `checkpoints`.
 
-- 2. Then generate artistic portrait drawings for example photos in the folder `./examples` using
+- 2. Test for example photos: generate artistic portrait drawings for example photos in the folder `./examples` using
 ``` bash
 # with GPU
 python test_seq_style.py
@@ -55,7 +45,8 @@ The result images are saved in `./results/pretrained/test_200/images3styles`,
 where `real`, `fake1`, `fake2`, `fake3` correspond to input face photo, style1 drawing, style2 drawing, style3 drawing respectively.
 
 <img src = 'imgs/how_to_crop.jpg'>
-- 3. To test on your own photos: First use an image editor to crop the face region of your photo (or use an optional preprocess [here](preprocess/readme.md)). Then specify the folder that contains test photos using `--dataroot`, specify save folder name using `--savefolder` and run the above command again:
+
+- 3. To test on your own photos: First use an image editor to crop the face region of your photo (or use an optional preprocess [here](preprocess/readme.md)). Then specify the folder that contains test photos using option `--dataroot`, specify save folder name using option `--savefolder` and run the above command again:
 
 ``` bash
 # with GPU
@@ -72,8 +63,18 @@ An example html screenshot is shown below:
 
 You can contact email yr16@mails.tsinghua.edu.cn for any questions.
 
-## Colab
-A colab demo is [here](https://colab.research.google.com/drive/1U1fPXD1JukuKPOrhGMX1iaJC-d8_RUYr).
+## Citation
+If you use this code for your research, please cite our paper.
+
+```
+@inproceedings{YiLLR20,
+  title     = {Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping},
+  author    = {Yi, Ran and Liu, Yong-Jin and Lai, Yu-Kun and Rosin, Paul L},
+  booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition (CVPR '20)},
+  pages     = {8214--8222},
+  year      = {2020}
+}
+```
 
 ## Acknowledgments
 Our code is inspired by [pytorch-CycleGAN-and-pix2pix](https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix).
