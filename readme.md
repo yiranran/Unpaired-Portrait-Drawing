@@ -17,7 +17,7 @@ From left to right: input, output(style1), output(style2), output(style3)
 ## Citation
 If you use this code for your research, please cite our paper.
 
-[paper](https://yiranran.github.io/files/CVPR2020_Unpaired%20Portrait%20Drawing%20Generation%20via%20Asymmetric%20Cycle%20Mapping.pdf), [suppl](https://yiranran.github.io/files/CVPR2020_Unpaired%20Portrait%20Drawing%20Generation%20via%20Asymmetric%20Cycle%20Mapping%20Suppl.pdf).
+[paper](https://openaccess.thecvf.com/content_CVPR_2020/papers/Yi_Unpaired_Portrait_Drawing_Generation_via_Asymmetric_Cycle_Mapping_CVPR_2020_paper.pdf), [suppl](https://openaccess.thecvf.com/content_CVPR_2020/supplemental/Yi_Unpaired_Portrait_Drawing_CVPR_2020_supplemental.pdf).
 ```
 @inproceedings{YiLLR20,
   title     = {Unpaired Portrait Drawing Generation via Asymmetric Cycle Mapping},
@@ -41,15 +41,32 @@ pip install -r requirements.txt
 
 ## Apply a Pre-trained Model
 
-- Download a pre-trained model from [BaiduYun](https://pan.baidu.com/s/1_9Fy8mRpTQp6AvqhHsfQAQ)(extract code:c9h7) or [GoogleDrive](https://drive.google.com/drive/folders/1FzOcdlMYhvK_nyLCe8wnwotMphhIoiYt?usp=sharing) and put it in `checkpoints/pretrained`.
+- 1. Download pre-trained models from [BaiduYun](https://pan.baidu.com/s/1_9Fy8mRpTQp6AvqhHsfQAQ)(extract code:c9h7) or [GoogleDrive](https://drive.google.com/drive/folders/1FzOcdlMYhvK_nyLCe8wnwotMphhIoiYt?usp=sharing) and rename the folder to `checkpoints`.
 
-- Then generate artistic portrait drawings for example photos in `examples` using
+- 2. Then generate artistic portrait drawings for example photos in the folder `./examples` using
 ``` bash
+# with GPU
 python test_seq_style.py
+# without GPU
+python test_seq_style.py --gpu -1
 ```
-The test results will be saved to a html file here: `./results/pretrained/test_200/indexstylex-x-x.html`.
+The test results will be saved to a html file here: `./results/pretrained/test_200/index3styles.html`.
+The result images are saved in `./results/pretrained/test_200/images3styles`,
+where `real`, `fake1`, `fake2`, `fake3` correspond to input face photo, style1 drawing, style2 drawing, style3 drawing respectively.
 
-- You could also test on your photos. The photos need to be square since the program will load it and resized as 512x512. An optional preprocess is [here](preprocess/readme.md). Modify the 5th line in [test_seq_style.py](test_seq_style.py) to your test folder and run the above command again.
+<img src = 'imgs/how_to_crop.jpg'>
+- 3. To test on your own photos, the photos need to be square (since the program will load it and resized as 512x512). You can use an image editor to crop a square area of your photo that contains face (or use an optional preprocess [here](preprocess/readme.md)). Then specify the folder that contains test photos using `--dataroot`, specify save folder name using `--savefolder` and run the above command again:
+
+``` bash
+# with GPU
+python test_seq_style.py --dataroot [input_folder] --savefolder [save_folder_name]
+# without GPU
+python test_seq_style.py --gpu -1 --dataroot [input_folder] --savefolder [save_folder_name]
+# E.g.
+python test_seq_style.py --gpu -1 --dataroot ./imgs/test1 --savefolder 3styles_test1
+```
+The test results will be saved to a html file here: `./results/pretrained/test_200/index[save_folder_name].html`.
+The result images are saved in `./results/pretrained/test_200/images[save_folder_name]`.
 
 You can contact email yr16@mails.tsinghua.edu.cn for any questions.
 
