@@ -37,6 +37,7 @@ class SingleDataset(BaseDataset):
         """
         A_path = self.A_paths[index]
         A_img = Image.open(A_path).convert('RGB')
+        self.opt.W, self.opt.H = A_img.size
         transform_params_A = get_params(self.opt, A_img.size)
         A = get_transform(self.opt, transform_params_A, grayscale=(self.input_nc == 1))(A_img)
         item = {'A': A, 'A_paths': A_path}

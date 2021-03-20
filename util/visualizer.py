@@ -5,9 +5,7 @@ import ntpath
 import time
 from . import util, html
 from subprocess import Popen, PIPE
-from scipy.misc import imresize
-import pdb
-from scipy.io import savemat
+from PIL import Image
 
 if sys.version_info[0] == 2:
     VisdomExceptionBase = Exception
@@ -15,7 +13,7 @@ else:
     VisdomExceptionBase = ConnectionError
 
 
-def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256):
+def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256, W=None, H=None):
     """Save images to the disk.
 
     Parameters:
@@ -37,16 +35,16 @@ def save_images(webpage, visuals, image_path, aspect_ratio=1.0, width=256):
     for label, im_data in visuals.items():
         ## tensor to im
         im = util.tensor2im(im_data)
-        #im,imo = util.tensor2im(im_data)
-        #matname = os.path.join(image_dir, '%s_%s.mat' % (name, label))
-        #savemat(matname,{'imo':imo})
         image_name = '%s_%s.png' % (name, label)
         save_path = os.path.join(image_dir, image_name)
         h, w, _ = im.shape
-        if aspect_ratio > 1.0:
-            im = imresize(im, (h, int(w * aspect_ratio)), interp='bicubic')
-        if aspect_ratio < 1.0:
-            im = imresize(im, (int(h / aspect_ratio), w), interp='bicubic')
+        if W is not None and H is not None and (W != w or H != h):
+            im = np.array(Image.fromarray(im).resize((W, H), Image.BICUBIC))
+        else:
+            if aspect_ratio > 1.0:
+                im = np.array(Image.fromarray(im).resize((int(w * aspect_ratio), h), Image.BICUBIC))
+            if aspect_ratio < 1.0:
+                im = np.array(Image.fromarray(im).resize((w, int(h / aspect_ratio)), Image.BICUBIC))
         util.save_image(im, save_path)
 
         ims.append(image_name)
@@ -133,7 +131,6 @@ class Visualizer():
                 for label, image in visuals.items():
                     image_numpy = util.tensor2im(image)
                     label_html_row += '<td>%s</td>' % label
-                    #pdb.set_trace()
                     images.append(image_numpy.transpose([2, 0, 1]))
                     idx += 1
                     if idx % ncols == 0:
@@ -203,7 +200,6 @@ class Visualizer():
         self.plot_data['Y'].append([losses[k] for k in self.plot_data['legend']])
         #X = np.stack([np.array(self.plot_data['X'])] * len(self.plot_data['legend']), 1)
         #Y = np.array(self.plot_data['Y'])
-        #pdb.set_trace()
         try:
             self.vis.line(
                 X=np.stack([np.array(self.plot_data['X'])] * len(self.plot_data['legend']), 1),

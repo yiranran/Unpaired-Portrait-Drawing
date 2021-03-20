@@ -8,7 +8,7 @@ This project generates artistic portrait drawings from face photos using a GAN-b
 
 ## Our Proposed Framework
  
-<img src = 'imgs/architecture.png'>
+<img src = 'imgs/architecture.jpg'>
 
 ## Sample Results
 From left to right: input, output(style1), output(style2), output(style3)
@@ -34,7 +34,7 @@ If you use this code for your research, please cite our paper.
 
 
 ## Installation
-- Install PyTorch 1.1.0 and torchvision from http://pytorch.org and other dependencies (e.g., [visdom](https://github.com/facebookresearch/visdom) and [dominate](https://github.com/Knio/dominate)). You can install all the dependencies by
+- To install the dependencies, run
 ```bash
 pip install -r requirements.txt
 ```
@@ -55,7 +55,7 @@ The result images are saved in `./results/pretrained/test_200/images3styles`,
 where `real`, `fake1`, `fake2`, `fake3` correspond to input face photo, style1 drawing, style2 drawing, style3 drawing respectively.
 
 <img src = 'imgs/how_to_crop.jpg'>
-- 3. To test on your own photos, the photos need to be square (since the program will load it and resized as 512x512). You can use an image editor to crop a square area of your photo that contains face (or use an optional preprocess [here](preprocess/readme.md)). Then specify the folder that contains test photos using `--dataroot`, specify save folder name using `--savefolder` and run the above command again:
+- 3. To test on your own photos: First use an image editor to crop the face region of your photo (or use an optional preprocess [here](preprocess/readme.md)). Then specify the folder that contains test photos using `--dataroot`, specify save folder name using `--savefolder` and run the above command again:
 
 ``` bash
 # with GPU
@@ -67,6 +67,8 @@ python test_seq_style.py --gpu -1 --dataroot ./imgs/test1 --savefolder 3styles_t
 ```
 The test results will be saved to a html file here: `./results/pretrained/test_200/index[save_folder_name].html`.
 The result images are saved in `./results/pretrained/test_200/images[save_folder_name]`.
+An example html screenshot is shown below:
+<img src = 'imgs/result_html.jpg'>
 
 You can contact email yr16@mails.tsinghua.edu.cn for any questions.
 
