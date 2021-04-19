@@ -5,6 +5,8 @@ We provide PyTorch implementations for our CVPR 2020 paper "Unpaired Portrait Dr
 
 This project generates multi-style artistic portrait drawings from face photos using a GAN-based model.
 
+[[Jittor implementation]](https://github.com/yiranran/Unpaired-Portrait-Drawing-Jittor)
+
 
 ## Our Proposed Framework
  
