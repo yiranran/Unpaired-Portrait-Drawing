@@ -65,6 +65,21 @@ An example html screenshot is shown below:
 
 You can contact email yr16@mails.tsinghua.edu.cn for any questions.
 
+## Train steps
+
+- 1. Prepare for the dataset: 1) download face photos and portrait drawings from internet (e.g. [resources](portrait_drawing_resources.md)). 2) align, crop photos and drawings & 3) prepare nose, eyes, lips masks according to [preprocess instructions](preprocess/readme.md). 3) put aligned photos under `./datasets/portrait_drawing/train/A`, aligned drawings under `./datasets/portrait_drawing/train/B`, masks under `A_nose`,`A_eyes`,`A_lips`,`B_nose`,`B_eyes`,`B_lips` respectively.
+
+- 2. Train a 3-class style classifier and extract the 3-dim style feature (according to paper). And save the style feature of each drawing in the training set in .npy format, in folder `./datasets/portrait_drawing/train/B_feat`
+
+A subset of our training set is [here](https://drive.google.com/file/d/1OSMOR3-uhGkoPwPFRNychJSNrpSak_23/view?usp=sharing).
+
+- 3. Train our model
+``` bash
+sh ./scripts/train.sh
+```
+Models are saved in folder checkpoints/portrait_drawing
+
+
 ## Citation
 If you use this code for your research, please cite our paper.
 

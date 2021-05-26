@@ -25,4 +25,4 @@ See `face_align_512.m` for more instructions.
 
 In our work, we use the face parsing network in https://github.com/cientgu/Mask_Guided_Portrait_Editing to get nose,eyes,lips regions and then dilate the regions to make them cover these facial features (some examples are shown in `example` folder).
 
-- The background masks need to be copied to `datasets/list/mask/A(B)(_eyes)(_lips)`, and has the **same filename** with aligned face photos.  
+- The background masks need to be copied to `datasets/portrait_drawing/train/A(B)(_eyes)(_lips)`, and has the **same filename** with aligned face photos.  

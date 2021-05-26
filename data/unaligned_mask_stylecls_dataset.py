@@ -13,18 +13,11 @@ class UnalignedMaskStyleClsDataset(BaseDataset):
     def __init__(self, opt):
         BaseDataset.__init__(self, opt)
 
-        imglistA = 'datasets/list/%s/%s.txt' % (opt.phase+'A', opt.dataroot)
-        imglistB = 'datasets/list/%s/%s.txt' % (opt.phase+'B', opt.dataroot)
-        
-        if not os.path.exists(imglistA) or not os.path.exists(imglistB):
-            self.dir_A = os.path.join(opt.dataroot, opt.phase + 'A')  # create a path '/path/to/data/trainA'
-            self.dir_B = os.path.join(opt.dataroot, opt.phase + 'B')  # create a path '/path/to/data/trainB'
+        self.dir_A = os.path.join(opt.dataroot, opt.phase + '/A')  # create a path '/path/to/data/trainA'
+        self.dir_B = os.path.join(opt.dataroot, opt.phase + '/B')  # create a path '/path/to/data/trainB'
 
-            self.A_paths = sorted(make_dataset(self.dir_A, opt.max_dataset_size))   # load images from '/path/to/data/trainA'
-            self.B_paths = sorted(make_dataset(self.dir_B, opt.max_dataset_size))    # load images from '/path/to/data/trainB'
-        else:
-            self.A_paths = sorted(open(imglistA, 'r').read().splitlines())
-            self.B_paths = sorted(open(imglistB, 'r').read().splitlines())
+        self.A_paths = sorted(make_dataset(self.dir_A, opt.max_dataset_size))   # load images from '/path/to/data/trainA'
+        self.B_paths = sorted(make_dataset(self.dir_B, opt.max_dataset_size))    # load images from '/path/to/data/trainB'
 
         self.A_size = len(self.A_paths)  # get the size of dataset A
         self.B_size = len(self.B_paths)  # get the size of dataset B
@@ -34,7 +27,8 @@ class UnalignedMaskStyleClsDataset(BaseDataset):
         self.input_nc = self.opt.output_nc if btoA else self.opt.input_nc       # get the number of channels of input image
         self.output_nc = self.opt.input_nc if btoA else self.opt.output_nc      # get the number of channels of output image
 
-        self.softmaxloc = os.path.join('style_features/styles2_sn_equal/', '1vgg19_softmax')
+        self.auxdir_A = os.path.join(opt.dataroot, "%s/A" % opt.phase)
+        self.auxdir_B = os.path.join(opt.dataroot, "%s/B" % opt.phase)
 
 
     def __getitem__(self, index):
@@ -48,21 +42,15 @@ class UnalignedMaskStyleClsDataset(BaseDataset):
         B_img = Image.open(B_path).convert('RGB')
 
         basenA = os.path.basename(A_path)
-        A_mask_img = Image.open(os.path.join('./datasets/list/mask/A',basenA))
+        A_mask_img = Image.open(os.path.join(self.auxdir_A+'_nose',basenA))
         basenB = os.path.basename(B_path)
-        basenB2 = basenB.replace('_fake.png','.png')
-        # for added synthetic drawing
-        basenB2 = basenB2.replace('_style1.png','.png')
-        basenB2 = basenB2.replace('_style2.png','.png')
-        basenB2 = basenB2.replace('_style1single.png','.png')
-        basenB2 = basenB2.replace('_style2single.png','.png')
-        B_mask_img = Image.open(os.path.join('./datasets/list/mask/B',basenB2))
+        B_mask_img = Image.open(os.path.join(self.auxdir_B+'_nose',basenB))
         if self.opt.use_eye_mask:
-            A_maske_img = Image.open(os.path.join('./datasets/list/mask/A_eyes',basenA))
-            B_maske_img = Image.open(os.path.join('./datasets/list/mask/B_eyes',basenB2))
+            A_maske_img = Image.open(os.path.join(self.auxdir_A+'_eyes',basenA))
+            B_maske_img = Image.open(os.path.join(self.auxdir_B+'_eyes',basenB))
         if self.opt.use_lip_mask:
-            A_maskl_img = Image.open(os.path.join('./datasets/list/mask/A_lips',basenA))
-            B_maskl_img = Image.open(os.path.join('./datasets/list/mask/B_lips',basenB2))
+            A_maskl_img = Image.open(os.path.join(self.auxdir_A+'_lips',basenA))
+            B_maskl_img = Image.open(os.path.join(self.auxdir_B+'_lips',basenB))
 
         # apply image transformation
         transform_params_A = get_params(self.opt, A_img.size)
@@ -86,7 +74,7 @@ class UnalignedMaskStyleClsDataset(BaseDataset):
             item['A_maskl'] = A_maskl
             item['B_maskl'] = B_maskl
 
-        softmax = np.load(os.path.join(self.softmaxloc,basenB[:-4]+'.npy'))
+        softmax = np.load(os.path.join(self.auxdir_B+'_feat',basenB[:-4]+'.npy'))
         softmax = torch.Tensor(softmax)
         [maxv,index] = torch.max(softmax,0)
         B_label = index
