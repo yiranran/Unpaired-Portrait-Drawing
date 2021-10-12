@@ -5,4 +5,4 @@ visdom==0.1.8.9
 scipy==1.1.0
 numpy==1.16.4
 Pillow==6.2.1
-opencv-python==4.1.0.25
+opencv-python==4.2.0.32
